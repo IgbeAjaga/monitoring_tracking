@@ -87,39 +87,52 @@ class ProductController extends Controller
      * Search the products based on various criteria.
      */
     public function search(Request $request): View
-    {
-        $query = Product::query();
+{
+    $query = Product::query();
 
-        if ($request->filled('branch')) {
-            $query->where('name', 'like', '%' . $request->branch . '%');
-        }
-
-        if ($request->filled('drug')) {
-            $query->where('drug', 'like', '%' . $request->drug . '%');
-        }
-
-       
-
-        if ($request->filled('response')) {
-            $query->where('response', 'like', '%' . $request->response . '%');
-        }
-
-        if ($request->filled('date_from')) {
-            $query->whereDate('created_at', '>=', $request->date_from);
-        }
-
-        if ($request->filled('date_to')) {
-            $query->whereDate('created_at', '<=', $request->date_to);
-        }
-
-        // Debugging: Log the query to the console
-        \DB::listen(function ($sql) {
-            \Log::info($sql->sql);
-        });
-
-        $products = $query->paginate(10);
-
-        return view('products.search', compact('products'))->with('i', (request()->input('page', 1) - 1) * 10);
+    if ($request->filled('branch')) {
+        $query->where('name', 'like', '%' . $request->branch . '%');
     }
+
+    if ($request->filled('drug')) {
+        $query->where('drug', 'like', '%' . $request->drug . '%');
+    }
+
+    if ($request->filled('response')) {
+        $query->where('response', $request->response);
+    }
+
+    if ($request->filled('date_from')) {
+        $query->whereDate('created_at', '>=', $request->date_from);
+    }
+
+    if ($request->filled('date_to')) {
+        $query->whereDate('created_at', '<=', $request->date_to);
+    }
+
+    $products = $query->paginate(10);
+
+    // Prepare the aggregated data for the table
+    $drugData = $products->groupBy('drug')->map(function ($items, $drug) {
+        $branches = [
+            'Asokoro' => 0, 'Maitama' => 0, 'Garki' => 0, 'Gimbiya PX' => 0,
+            'New Ademola' => 0, 'Old Ademola' => 0, 'Old Gwarinpa' => 0,
+            'New Gwarinpa' => 0, 'Gwarina 3' => 0, 'Gana PX' => 0, 'Ferma' => 0
+        ];
+
+        foreach ($items as $item) {
+            if (array_key_exists($item->name, $branches)) {
+                $branches[$item->name]++;
+            }
+        }
+
+        return array_merge(['drug' => $drug], $branches);
+    });
+
+    return view('products.search', compact('products', 'drugData'))->with('i', (request()->input('page', 1) - 1) * 10);
+}
+
+
+    
     
 }

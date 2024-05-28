@@ -1,6 +1,7 @@
 @extends('products.layout')
 
 @section('content')
+
 <div class="card mt-5">
   <h2 class="card-header text-center text-primary">Search Results</h2>
   <div class="card-body">
@@ -13,8 +14,47 @@
         <i class="fa fa-print"></i> Print
       </button>
     </div>
-    
 
+    <!-- Small Table to show aggregated data -->
+    <h2 class="card-header text-center text-primary">AGGREGATE CUSTOMER REPORT PER RESPONSE SEARCHED</h2>
+    <table class="table table-bordered mb-4">
+            <thead>
+                <tr>
+                    <th>Drug</th>
+                    <th>Asokoro</th>
+                    <th>Maitama</th>
+                    <th>Garki</th>
+                    <th>Gimbiya PX</th>
+                    <th>New Ademola</th>
+                    <th>Old Ademola</th>
+                    <th>Old Gwarinpa</th>
+                    <th>New Gwarinpa</th>
+                    <th>Gwarina 3</th>
+                    <th>Gana PX</th>
+                    <th>Ferma</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($drugData as $data)
+                    <tr>
+                        <td>{{ $data['drug'] }}</td>
+                        <td>{{ $data['Asokoro'] }}</td>
+                        <td>{{ $data['Maitama'] }}</td>
+                        <td>{{ $data['Garki'] }}</td>
+                        <td>{{ $data['Gimbiya PX'] }}</td>
+                        <td>{{ $data['New Ademola'] }}</td>
+                        <td>{{ $data['Old Ademola'] }}</td>
+                        <td>{{ $data['Old Gwarinpa'] }}</td>
+                        <td>{{ $data['New Gwarinpa'] }}</td>
+                        <td>{{ $data['Gwarina 3'] }}</td>
+                        <td>{{ $data['Gana PX'] }}</td>
+                        <td>{{ $data['Ferma'] }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
+        <h2 class="card-header text-center text-primary">ALL CUSTOMER REPORT PER RESPONSE SEARCHED</h2>
     <table class="table table-bordered table-striped mt-4">
       <thead>
         <tr>
