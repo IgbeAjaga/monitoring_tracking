@@ -52,7 +52,7 @@
             <select name="response" id="inputResponse" class="form-select @error('response') is-invalid @enderror">
                 <option value="">Select Response</option>
                 <option value="in_stock">in_stock</option>
-                <option value="unavailable">unavailable</option>
+                <option value="out_of_stock">out_of_stock</option>
                 <option value="no_response">no_response</option>              
             </select>
             @error('response')

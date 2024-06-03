@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card mt-5">
-  <h2 class="card-header text-center text-primary">H-MEDIX CUSTOMER REPORT</h2>
+  <h2 class="card-header text-center text-primary"><strong>H-MEDIX CALL CENTRE REPORT</strong></h2>
   <div class="card-body">
 
     @if(session('success'))
@@ -45,7 +45,7 @@
             <select name="response" id="inputResponse" class="form-select @error('response') is-invalid @enderror">
                 <option value="">All Responses</option>
                 <option value="in_stock">in_stock</option>
-                <option value="unavailable">unavailable</option>
+                <option value="out_of_stock">out_of_stock</option>
                 <option value="no_response">no_response</option>              
             </select>
             @error('response')
@@ -68,6 +68,10 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <a class="btn btn-success btn-sm" href="{{ route('products.create') }}">
         <i class="fa fa-plus"></i> Add New Report
+      </a>   
+      
+      <a class="btn btn-secondary btn-sm" href="{{ route('products.export') }}">
+        <i class="fa fa-file-excel"></i> Export to Excel
       </a>
     </div>
 

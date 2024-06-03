@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card mt-5">
-  <h2 class="card-header text-center text-primary">Search Results</h2>
+  <!-- <h2 class="card-header text-center text-primary">Search Results</h2> -->
   <div class="card-body">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
@@ -16,7 +16,13 @@
     </div>
 
     <!-- Small Table to show aggregated data -->
-    <h2 class="card-header text-center text-primary">AGGREGATE CUSTOMER REPORT PER RESPONSE SEARCHED</h2>
+    <h2 class="card-header text-center text-primary"><strong>SUMMARY OF:</strong> 
+    @if(request('drug'))  {{ request('drug') }} @endif
+    @if(request('response')) drugs {{ request('response') }} - @endif
+    @if(request('branch')) {{ request('branch') }} branch @endif
+    @if(request('date_from')) from {{ request('date_from') }} @endif
+    @if(request('date_to')) to {{ request('date_to') }} @endif
+  </h2>
     <table class="table table-bordered mb-4">
             <thead>
                 <tr>
@@ -54,7 +60,13 @@
             </tbody>
         </table>
         
-        <h2 class="card-header text-center text-primary">ALL CUSTOMER REPORT PER RESPONSE SEARCHED</h2>
+        <h2 class="card-header text-center text-primary"><strong>DETAILS OF:</strong> 
+    @if(request('drug'))  {{ request('drug') }} @endif
+    @if(request('response')) drugs {{ request('response') }} - @endif
+    @if(request('branch')) {{ request('branch') }} branch @endif
+    @if(request('date_from')) from {{ request('date_from') }} @endif
+    @if(request('date_to')) to {{ request('date_to') }} @endif
+  </h2>
     <table class="table table-bordered table-striped mt-4">
       <thead>
         <tr>

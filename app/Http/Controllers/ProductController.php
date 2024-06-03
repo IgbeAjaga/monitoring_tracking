@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Http\Requests\ProductStoreRequest;
+use App\Exports\ProductsExport;
 use App\Http\Requests\ProductUpdateRequest;
+use Maatwebsite\Excel\Facades\Excel;
     
 class ProductController extends Controller
 {
@@ -132,7 +134,10 @@ class ProductController extends Controller
     return view('products.search', compact('products', 'drugData'))->with('i', (request()->input('page', 1) - 1) * 10);
 }
 
-
+public function export()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
     
     
 }
